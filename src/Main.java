@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        StepTracker tracker = new StepTracker();
+        StepTracker stepTracker = new StepTracker();
 
         System.out.println("Добро пожаловать в «Счётчик калорий»!");
         while (true) {
@@ -11,12 +11,11 @@ public class Main {
 
             int command = scanner.nextInt();
             if (command == 1) {
-                tracker.enterTheNumOfStepsPerDay(); // Вписываем значения, сохраняем в переменные
-//               tracker.saveSteps(tracker.monthToData, tracker.inputMonth, tracker.inputDays, tracker.inputSteps);
+                stepTracker.enterTheNumOfStepsPerDay(); // Вписываем значения, сохраняем в переменные
             } else if (command == 2) {
-
+                stepTracker.outputUserMenu(scanner);
             } else if (command == 3) {
-                tracker.defNumOfStepsChange();
+                stepTracker.defNumOfStepsChange();
             } else if (command == 4) {
                 System.out.println("SYSTEM: <ВЫХОДИМ ИЗ ПРИЛОЖЕНИЯ...>");
                 break;

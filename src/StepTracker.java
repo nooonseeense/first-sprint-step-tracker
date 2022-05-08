@@ -13,6 +13,9 @@ class StepTracker {
             monthToData[i] = new MonthData();
         }
     }
+    // Мы создаем ссылки на 12 уникальных МЕСЯЦЕВ объектов (monthToData[0] - ОБЪЕКТ ЯНВАРЬ)
+    // У каждого экземпляра объекта (месяца) будет массив из 30 дней
+    // В monthToData.daysMonth[inputDays] - будем вкладывать inputSteps
 
     public void enterTheNumOfStepsPerDay() { // Ввод количества шагов за день
         Scanner scanner = new Scanner(System.in);
@@ -30,18 +33,21 @@ class StepTracker {
             if (inputMonth < 0 && inputDays < 0 && inputSteps < 0) { // проверка на отрицатильные числа
                 System.out.println("SYSTEM: <ВВЕДИТЕ ПОЛОЖИТЕЛЬНЫЕ ЧИСЛА>\n");
             } else {
+                monthToData[inputMonth].daysMonth[inputDays] = inputSteps;
                 System.out.println("SYSTEM: <ДАННЫЕ СОХРАНЕНЫ>\n");
                 break;
             }
         }
     }
-//    public int saveSteps(MonthData[] monthToData, int months, int days, int steps) {
-//
-//
-//    }
 
-    public void outputUserMenu() { // Меню для вывода статистики приложения
+    public void outputUserMenu(Scanner scanner) {// Меню для вывода статистики приложения
+        System.out.println("Укажите номер месяца в формате: 0 - [Январь]:");
+        int inputMonthMethods = scanner.nextInt();
 
+        numOfStepsTakenPerDay(inputMonthMethods); // Количество пройденных шагов по дням
+        totalNumOfStepsPerMonth(inputMonthMethods); // Общее количество шагов за месяц
+        maxNumOfStepsTakenInAMonth(inputMonthMethods); // Максимальное количество шагов
+        avrNumOfSteps(inputMonthMethods); // Среднее количество шагов
 
     }
 
@@ -61,6 +67,40 @@ class StepTracker {
                 break;
             }
         }
+    }
+
+    public void numOfStepsTakenPerDay(int inputMonth) {
+        System.out.println("[!] Количество пройденных шагов по дням:");
+        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
+            System.out.println(" " + (i + 1) + " день: " + monthToData[inputMonth].daysMonth[i] + "; ");
+        }
+    }
+    public void totalNumOfStepsPerMonth(int inputMonth) {
+        int sum = 0;
+        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
+            sum = sum + monthToData[inputMonth].daysMonth[i];
+        }
+        System.out.println("[!] Общее количество шагов за месяц: \n" + " " + sum);
+    }
+    public void maxNumOfStepsTakenInAMonth(int inputMonth) {
+        int num = 0;
+        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
+            if (monthToData[inputMonth].daysMonth[i] >= num) {
+                num = monthToData[inputMonth].daysMonth[i];
+            }
+        }
+        System.out.println("[!] Максимальное пройденное количество шагов в месяце: \n" + " " + num);
+    }
+    public void avrNumOfSteps(int inputMonth) {
+        int avr = 0;
+        if (monthToData[inputMonth].daysMonth.length > 0) {
+           int sum = 0;
+            for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
+                sum += monthToData[inputMonth].daysMonth[i];
+            }
+            avr = sum / monthToData[inputMonth].daysMonth.length;
+        }
+        System.out.println("[!] Среднее количество шагов в месяце: \n" + " " + avr);
     }
 }
 
