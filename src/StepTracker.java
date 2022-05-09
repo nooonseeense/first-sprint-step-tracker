@@ -1,8 +1,10 @@
 import java.util.Scanner;
 
 class StepTracker {
-    int defNumOfSteps = 10000; // Переменная с количеством шагов по умолчанию
+    Converter convert = new Converter();
     MonthData[] monthToData;
+
+    int defNumOfSteps = 10000; // Переменная с количеством шагов по умолчанию
     int inputMonth = 0;
     int inputDays = 0;
     int inputSteps = 0;
@@ -13,10 +15,6 @@ class StepTracker {
             monthToData[i] = new MonthData();
         }
     }
-    // Мы создаем ссылки на 12 уникальных МЕСЯЦЕВ объектов (monthToData[0] - ОБЪЕКТ ЯНВАРЬ)
-    // У каждого экземпляра объекта (месяца) будет массив из 30 дней
-    // В monthToData.daysMonth[inputDays] - будем вкладывать inputSteps
-
     public void enterTheNumOfStepsPerDay() { // Ввод количества шагов за день
         Scanner scanner = new Scanner(System.in);
 
@@ -39,20 +37,26 @@ class StepTracker {
             }
         }
     }
+    public void outputUserMenu(Scanner scanner) { // Меню для вывода статистики приложения
+        while (true) {
+            System.out.println("Укажите номер месяца в формате: 0 - [Январь]:");
+            int inputMonthMethods = scanner.nextInt();
 
-    public void outputUserMenu(Scanner scanner) {// Меню для вывода статистики приложения
-        System.out.println("Укажите номер месяца в формате: 0 - [Январь]:");
-        int inputMonthMethods = scanner.nextInt();
+            int saveTotalSteps = totalNumOfStepsPerMonth(inputMonthMethods);
 
-        numOfStepsTakenPerDay(inputMonthMethods); // Количество пройденных шагов по дням
-        totalNumOfStepsPerMonth(inputMonthMethods); // Общее количество шагов за месяц
-        maxNumOfStepsTakenInAMonth(inputMonthMethods); // Максимальное количество шагов
-        avrNumOfSteps(inputMonthMethods); // Среднее количество шагов
-        // Пройденная дистанция
-        // Количество сожженых каллорий
-        // Лучшая серия: максимальное количество подряд идущих дней, в течение которых количество шагов за день было равно или выше целевого.
+            if (inputMonthMethods < 0 || inputMonthMethods > 30) {
+                System.out.println("SYSTEM: <ЧИСЛО ДОЛЖНО БЫТЬ БОЛЬШЕ ИЛИ РАВНО 0 И МЕНЬШЕ 31>\n");
+            } else {
+                numOfStepsTakenPerDay(inputMonthMethods); // Количество пройденных шагов по дням
+                totalNumOfStepsPerMonth(inputMonthMethods); // Общее количество шагов за месяц
+                maxNumOfStepsTakenInAMonth(inputMonthMethods); // Максимальное количество шагов
+                avrNumOfSteps(inputMonthMethods); // Среднее количество шагов
+                convert.distanceTraveled(saveTotalSteps); // Пройденная дистанция
+                convert.calorieCalculator(saveTotalSteps);// Количество сожженых каллорий
+                break;
+            }
+        }// Лучшая серия: максимальное количество подряд идущих дней, в течение которых количество шагов за день было равно или выше целевого.
     }
-
     public void defNumOfStepsChange() { // Изменение целового кол-ва шагов, не должно быть отрицательным
         Scanner scanner = new Scanner(System.in);
 
@@ -70,19 +74,19 @@ class StepTracker {
             }
         }
     }
-
     public void numOfStepsTakenPerDay(int inputMonth) {
         System.out.println("[!] Количество пройденных шагов по дням:");
         for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
             System.out.println(" " + (i + 1) + " день: " + monthToData[inputMonth].daysMonth[i] + "; ");
         }
     }
-    public void totalNumOfStepsPerMonth(int inputMonth) {
+    public int totalNumOfStepsPerMonth(int inputMonth) {
         int sum = 0;
         for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
             sum = sum + monthToData[inputMonth].daysMonth[i];
         }
         System.out.println("[!] Общее количество шагов за месяц: \n" + " " + sum);
+        return sum;
     }
     public void maxNumOfStepsTakenInAMonth(int inputMonth) {
         int num = 0;

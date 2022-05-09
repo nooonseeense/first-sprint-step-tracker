@@ -1,12 +1,13 @@
+import java.text.DecimalFormat;
+
 class Converter {
-
-    public Converter(int distance) {
-
+    public void distanceTraveled(int saveTotalSteps) {
+        DecimalFormat df = new DecimalFormat("###.###");
+        double distance = saveTotalSteps / 0.75;
+        System.out.println("[!] Пройденная дистанция за месяц: \n" + " " + df.format(distance / 1000) + " КМ");
+    }
+    public void calorieCalculator(int saveTotalSteps) {
+        System.out.println("[!] Количество сожженых килокалорий: \n" + " " + saveTotalSteps / 50);
     }
 }
 
-//    public void distanceTraveled() {
-//        StepTracker tracker = new StepTracker();
-//        double distance = tracker.totalNumOfStepsPerMonth(tracker.inputMonthMethod) / 0.75; // Количество метров
-//        System.out.println("[!] Пройденная дистанция за месяц: \n" + " " + distance / 1000 + " КМ");
-//    }
