@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 class StepTracker {
-    Converter convert = new Converter();
     MonthData[] monthToData;
 
     int defNumOfSteps = 10000; // Переменная с количеством шагов по умолчанию
@@ -37,7 +36,8 @@ class StepTracker {
             }
         }
     }
-    public void outputUserMenu(Scanner scanner) { // Меню для вывода статистики приложения
+    public void outputUserMenu(Scanner scanner) {
+        Converter convert = new Converter();// Меню для вывода статистики приложения
         while (true) {
             System.out.println("Укажите номер месяца в формате: 0 - [Январь]:");
             int inputMonthMethods = scanner.nextInt();
