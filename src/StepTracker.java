@@ -48,7 +48,9 @@ class StepTracker {
         totalNumOfStepsPerMonth(inputMonthMethods); // Общее количество шагов за месяц
         maxNumOfStepsTakenInAMonth(inputMonthMethods); // Максимальное количество шагов
         avrNumOfSteps(inputMonthMethods); // Среднее количество шагов
-
+        // Пройденная дистанция
+        // Количество сожженых каллорий
+        // Лучшая серия: максимальное количество подряд идущих дней, в течение которых количество шагов за день было равно или выше целевого.
     }
 
     public void defNumOfStepsChange() { // Изменение целового кол-ва шагов, не должно быть отрицательным
@@ -95,10 +97,19 @@ class StepTracker {
         int avr = 0;
         if (monthToData[inputMonth].daysMonth.length > 0) {
            int sum = 0;
+           int index = 0;
+
             for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
-                sum += monthToData[inputMonth].daysMonth[i];
+                if (monthToData[inputMonth].daysMonth[i] == 0) {
+                    index += 1;
+                }
             }
-            avr = sum / monthToData[inputMonth].daysMonth.length;
+            index = monthToData[inputMonth].daysMonth.length - index;
+
+            for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
+                    sum += monthToData[inputMonth].daysMonth[i];
+            }
+            avr = sum / index;
         }
         System.out.println("[!] Среднее количество шагов в месяце: \n" + " " + avr);
     }
