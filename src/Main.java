@@ -5,17 +5,16 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         StepTracker stepTracker = new StepTracker();
 
-        System.out.println("Добро пожаловать в «Счётчик калорий»!");
+        System.out.println("Добро пожаловать в «Счётчик калорий [Build 1.0]»!");
         while (true) {
             printMenu();
-
             int command = scanner.nextInt();
             if (command == 1) {
-                stepTracker.enterTheNumOfStepsPerDay(); // Вписываем значения, сохраняем в переменные
+                stepTracker.enterTheNumOfStepsPerDay(scanner); // Вписываем значения, сохраняем в переменные
             } else if (command == 2) {
                 stepTracker.outputUserMenu(scanner);
             } else if (command == 3) {
-                stepTracker.defNumOfStepsChange();
+                stepTracker.defNumOfStepsChange(scanner);
             } else if (command == 4) {
                 System.out.println("SYSTEM: <ВЫХОДИМ ИЗ ПРИЛОЖЕНИЯ...>");
                 break;
