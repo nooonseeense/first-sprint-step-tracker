@@ -93,17 +93,15 @@ class StepTracker {
     }
     public void avrNumOfSteps(int inputMonth) {
         int sum = 0;
-        int countZero = 0;
+        int validEntries = 0;
 
-        for (int num : monthToData[inputMonth].daysMonth) {
-            if (num > 0) {
-                sum += num; // Посчитали сумму всех чисел
-            } else if (num == 0) {
-                countZero += 1;
+        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
+            if (monthToData[inputMonth].daysMonth[i] != 0) {
+                sum += monthToData[inputMonth].daysMonth[i];
+                ++validEntries;
             }
         }
-        countZero = 30 - countZero;
-        System.out.println("[!] Среднее количество шагов в месяце: \n" + " " + sum / countZero);
+        System.out.println("[!] Среднее количество шагов в месяце: \n" + " " + sum / validEntries);
     }
     public void bestSeriesOfDays(int steps) {
         int countBestDays = 0;
@@ -123,22 +121,3 @@ class StepTracker {
                 " " + maxCountBestDays);
     }
 }
-/*
-* 1. Доделать метод bestSeriesOfDays;
-* 2. Добавить проверку чисел в методы
-* 3. Исправить ошибку: Проблема в методе avrNumOfSteps
-* public void avrNumOfSteps(int inputMonth) {
-        int sum = 0;
-        int countZero = 0;
-
-        for (int num : monthToData[inputMonth].daysMonth) {
-            if (num > 0) {
-                sum += num; // Посчитали сумму всех чисел
-            } else if (num == 0) {
-                countZero += 1;
-            }
-        }
-        countZero = 30 - countZero;
-        System.out.println("[!] Среднее количество шагов в месяце: \n" + " " + sum / countZero);
-    }
-* */
