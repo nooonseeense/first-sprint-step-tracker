@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        StepTracker stepTracker = new StepTracker();
+        StepTracker stepTracker = new StepTracker(scanner);
 
-        System.out.println("Добро пожаловать в «Счётчик калорий [Build 2.0]»!");
+        System.out.println("Добро пожаловать в «Счётчик калорий [Build 3.0]»!");
         while (true) {
             printMenu();
             switch (scanner.nextInt()) {
