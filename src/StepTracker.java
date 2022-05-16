@@ -1,16 +1,16 @@
 import java.util.Scanner;
 
 class StepTracker {
-    private Scanner scanner;
-    private MonthData[] monthToData;
-    private Converter convert = new Converter();
+    private final Scanner SCANNER;
+    private final MonthData[] MONTH_TO_DATA;
+    private final Converter CONVERT = new Converter();
     private int defNumOfSteps = 10000;
 
-    public StepTracker() {
-        scanner = new Scanner(System.in);
-        monthToData = new MonthData[12];
-        for (int i = 0; i < monthToData.length; i++) {
-            monthToData[i] = new MonthData();
+    public StepTracker(Scanner SCANNER) {
+        this.SCANNER = SCANNER;
+        MONTH_TO_DATA = new MonthData[12];
+        for (int i = 0; i < MONTH_TO_DATA.length; i++) {
+            MONTH_TO_DATA[i] = new MonthData();
         }
     }
     public void enterTheNumOfStepsPerDay() {
@@ -19,16 +19,16 @@ class StepTracker {
         int inputSteps;
         while (true) {
             System.out.println("Укажите номер месяца в формате: 0 - [Январь]:");
-            inputMonth = scanner.nextInt();
+            inputMonth = SCANNER.nextInt();
             System.out.println("Укажите номер дня в формате: 1 - [Первый день месяца]");
-            inputDays = scanner.nextInt();
+            inputDays = SCANNER.nextInt();
             System.out.println("Укажите количество пройденных шагов за выбранный период: ");
-            inputSteps = scanner.nextInt();
-            if (inputMonth < 0 || inputMonth >= 12 || inputDays < 0 ||
+            inputSteps = SCANNER.nextInt();
+            if (inputMonth < 0 || inputMonth >= 12 || inputDays <= 0 ||
                     inputDays >= 31 || inputSteps < 0) {
-                System.out.println("SYSTEM: <ВВЕДИТЕ ПОЛОЖИТЕЛЬНЫЕ ЧИСЛА>\n");
+                System.out.println("SYSTEM: <ОШИБКА ЧИСЛОВОГО ВВОДА>\n");
             } else {
-                monthToData[inputMonth].daysMonth[inputDays - 1] = inputSteps;
+                MONTH_TO_DATA[inputMonth].daysMonth[inputDays - 1] = inputSteps;
                 System.out.println("SYSTEM: <ДАННЫЕ СОХРАНЕНЫ>\n");
                 break;
             }
@@ -37,20 +37,20 @@ class StepTracker {
     public void outputUserMenu() {
         while (true) {
             System.out.println("Укажите номер месяца в формате: 0 - [Январь]:");
-            int inputMonthMethods = scanner.nextInt();
-            int saveTotalSteps = totalNumOfStepsPerMonth(inputMonthMethods);
+            int inputMonthMethods = SCANNER.nextInt();
             if (inputMonthMethods < 0 || inputMonthMethods >= 12) {
-                System.out.println("SYSTEM: <ВВЕДИТЕ ПОЛОЖИТЕЛЬНЫЕ ЧИСЛА>\n");
+                System.out.println("SYSTEM: <ОШИБКА ЧИСЛОВОГО ВВОДА>\n");
             } else {
+                int saveTotalSteps = totalNumOfStepsPerMonth(inputMonthMethods);
                 numOfStepsTakenPerDay(inputMonthMethods);
                 System.out.println("[!] Общее количество шагов за месяц: \n" +
                         " " + totalNumOfStepsPerMonth(inputMonthMethods));
                 maxNumOfStepsTakenInAMonth(inputMonthMethods);
                 avrNumOfSteps(inputMonthMethods);
                 System.out.println("[!] Пройденная дистанция за месяц: \n" +
-                        " " + convert.distanceTraveled(saveTotalSteps) + " КМ");
+                        " " + CONVERT.distanceTraveled(saveTotalSteps) + " КМ");
                 System.out.println("[!] Количество сожженых килокалорий: \n" +
-                        " " + convert.calorieCalculator(saveTotalSteps) + " KCAL");
+                        " " + CONVERT.calorieCalculator(saveTotalSteps) + " KCAL");
                 bestSeriesOfDays(defNumOfSteps, inputMonthMethods);
                 break;
             }
@@ -60,9 +60,9 @@ class StepTracker {
         System.out.println("Текущее значение целевого количества шагов: " + defNumOfSteps);
         while (true) {
             System.out.println("Введите новое значение целевого количества шагов:");
-            defNumOfSteps = scanner.nextInt();
+            defNumOfSteps = SCANNER.nextInt();
             if (defNumOfSteps < 0) {
-                System.out.println("SYSTEM: <ВВЕДИТЕ ПОЛОЖИТЕЛЬНОЕ ЧИСЛО>\n");
+                System.out.println("SYSTEM: <ОШИБКА ЧИСЛОВОГО ВВОДА>\n");
             } else {
                 System.out.println("SYSTEM: <ДАННЫЕ СОХРАНЕНЫ>\n");
                 break;
@@ -71,40 +71,40 @@ class StepTracker {
     }
     public void numOfStepsTakenPerDay(int inputMonth) {
         System.out.println("[!] Количество пройденных шагов по дням:");
-        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
+        for (int i = 0; i < MONTH_TO_DATA[inputMonth].daysMonth.length; i++) {
             System.out.println(" " + (i + 1) + " день: " +
-                    monthToData[inputMonth].daysMonth[i] + "; ");
+                    MONTH_TO_DATA[inputMonth].daysMonth[i] + "; ");
         }
     }
     public int totalNumOfStepsPerMonth(int inputMonth) {
         int sum = 0;
-        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
-            sum = sum + monthToData[inputMonth].daysMonth[i];
+        for (int i = 0; i < MONTH_TO_DATA[inputMonth].daysMonth.length; i++) {
+            sum = sum + MONTH_TO_DATA[inputMonth].daysMonth[i];
         }
         return sum;
     }
     public void maxNumOfStepsTakenInAMonth(int inputMonth) {
         int num = 0;
-        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
-            if (monthToData[inputMonth].daysMonth[i] >= num) {
-                num = monthToData[inputMonth].daysMonth[i];
+        for (int i = 0; i < MONTH_TO_DATA[inputMonth].daysMonth.length; i++) {
+            if (MONTH_TO_DATA[inputMonth].daysMonth[i] >= num) {
+                num = MONTH_TO_DATA[inputMonth].daysMonth[i];
             }
         }
         System.out.println("[!] Максимальное пройденное количество шагов в месяце: \n" + " " + num);
     }
     public void avrNumOfSteps(int inputMonth) {
         int sum = 0;
-        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
-                sum += monthToData[inputMonth].daysMonth[i];
+        for (int i = 0; i < MONTH_TO_DATA[inputMonth].daysMonth.length; i++) {
+                sum += MONTH_TO_DATA[inputMonth].daysMonth[i];
         }
         System.out.println("[!] Среднее количество шагов в месяце: \n" + " " +
-                sum / monthToData[inputMonth].daysMonth.length);
+                sum / MONTH_TO_DATA[inputMonth].daysMonth.length);
     }
     public void bestSeriesOfDays(int steps, int inputMonth) {
         int countBestDays = 0;
         int maxCountBestDays = 0;
-        for (int i = 0; i < monthToData[inputMonth].daysMonth.length; i++) {
-            if (monthToData[inputMonth].daysMonth[i] < steps) {
+        for (int i = 0; i < MONTH_TO_DATA[inputMonth].daysMonth.length; i++) {
+            if (MONTH_TO_DATA[inputMonth].daysMonth[i] < steps) {
                 countBestDays = 0;
             } else {
                 countBestDays++;
