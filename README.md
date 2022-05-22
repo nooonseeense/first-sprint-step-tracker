@@ -2,9 +2,9 @@
 First project in YandexPraktikum, course: Java-programmer.
 
 # Program functionality:
-## 1. Saving the number of steps per day;
+### 1. Saving the number of steps per day;
 
-## 2. Calculation and display of statistics for the month specified by the user. The statistics are as follows:
+### 2. Calculation and display of statistics for the month specified by the user. The statistics are as follows:
   1) The number of steps taken by day in the following format:
         1st day: 3000, 2nd day: 2000, ..., 30th day: 10000
   2) Total number of steps per month;
@@ -14,4 +14,4 @@ First project in YandexPraktikum, course: Java-programmer.
   6) The number of calories burned;
   7) Best streak: The maximum number of consecutive days in which the number of steps per day was equal to or higher than the target.
 
-## 3. Change your step goal.
+### 3. Change your step goal.
