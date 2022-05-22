@@ -1,4 +1,4 @@
-# Easy Step Tracker [Build 3.0]
+# Easy Step Tracker [Build 1.0]
 First project in YandexPraktikum, course: Java-programmer.
 
 # Program functionality:
