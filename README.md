@@ -1,5 +1,3 @@
-# Easy Step Tracker [Build 1.0]
-
 # Program functionality:
 ### 1. Saving the number of steps per day;
 
