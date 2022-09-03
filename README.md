@@ -1,5 +1,5 @@
 # Console_tst
-##Program functionality:
+#Program functionality:
 ### 1. Saving the number of steps per day;
 
 ### 2. Calculation and display of statistics for the month specified by the user. The statistics are as follows:
